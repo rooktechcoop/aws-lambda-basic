@@ -14,7 +14,6 @@ data "archive_file" "lambda_zip" {
 
 resource "aws_lambda_function" "lambda" {
   depends_on = [null_resource.module_dependency]
-  provider        = aws.dst
 
   filename         = "${var.lambda_function_name}.zip"
   source_code_hash = filebase64sha256("${var.lambda_function_name}.zip") #data.archive_file.lambda_zip.output_base64sha256
@@ -37,7 +36,6 @@ resource "aws_lambda_function" "lambda" {
 }
 
 resource "aws_cloudwatch_log_group" "lambda_cwgroup" {
-  provider    = aws.dst
 
   name              = "/aws/lambda/${var.lambda_function_name}"
   retention_in_days = 14
@@ -45,7 +43,6 @@ resource "aws_cloudwatch_log_group" "lambda_cwgroup" {
 
 
 resource "aws_iam_role" "lambda_role" {
-  provider    = aws.dst
   name = "${var.lambda_function_name}-role"
 
   assume_role_policy = <<EOF
@@ -66,7 +63,6 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_iam_role_policy_attachment" {
-  provider    = aws.dst
   
   count      = length(var.lambda_policy_arn)
   role       = aws_iam_role.lambda_role.name
