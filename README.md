@@ -10,7 +10,7 @@ module "compute_lambda_test_s3" {
     }
     source  = "../modules/lambda-basic"
     
-    lambda_function_name            = "${var.namespace}-${var.stage}-lambda-test-s3"
+    lambda_function_name            = "hello-lambda"
     lambda_code_path                = "../../lambdas/hello"   
     lambda_handler                  = "lambda_function.lambda_handler"
     lambda_runtime                  = "python3.8"
