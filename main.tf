@@ -42,7 +42,7 @@ resource "aws_lambda_function" "lambda" {
   handler          = var.lambda_handler
   runtime          = var.lambda_runtime
   tags             = var.tags
-  layers           = length(var.lambda_dependencies_path) > 0 ? concat(var.lambda_layers, [aws_lambda_layer_version.lambda_dependencies_layer[0].arn]) : var.lambda_layers
+  layers           = length(var.lambda_dependencies_path) > 0 ? var.lambda_layers == null ? [aws_lambda_layer_version.lambda_dependencies_layer[0].arn] : concat(var.lambda_layers, [aws_lambda_layer_version.lambda_dependencies_layer[0].arn]) : var.lambda_layers
   timeout          = var.lambda_timeout
 
 
