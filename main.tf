@@ -23,7 +23,7 @@ data "archive_file" "dependencies_zip" {
 resource "aws_lambda_layer_version" "lambda_dependencies_layer" {
 
   count = length(var.lambda_dependencies_path) > 0 ? 1 : 0
-  filename            = "dependencies.zip"
+  filename            = "${var.lambda_function_name}_dependencies.zip"
   layer_name          = "${var.lambda_function_name}-layer"
   compatible_runtimes = [var.lambda_runtime]
   source_code_hash    = data.archive_file.dependencies_zip[0].output_base64sha256
