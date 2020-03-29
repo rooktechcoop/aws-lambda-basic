@@ -11,6 +11,12 @@ variable "lambda_code_path" {
   description = "The path to your lamda code"
 }
 
+variable "lambda_dependencies_path" {
+  description = "The path to your dependencies path"
+  default     = ""
+  type        = string
+}
+
 variable "lambda_handler" {
   description = "Lambda handler, e.g: lambda_function.lambda_handler"
 }

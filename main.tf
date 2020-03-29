@@ -12,6 +12,25 @@ data "archive_file" "lambda_zip" {
 
 }
 
+data "archive_file" "dependencies_zip" {
+
+  count = length(var.lambda_dependencies_path) > 0 ? 1 : 0
+  type        = "zip"
+  source_dir  = var.lambda_dependencies_path
+  output_path = "${var.lambda_function_name}_dependencies.zip"
+}
+
+resource "aws_lambda_layer_version" "lambda_dependencies_layer" {
+  depends_on = [null_resource.module_dependency]
+
+  count = length(var.lambda_dependencies_path) > 0 ? 1 : 0
+  filename            = "${var.lambda_function_name}_dependencies.zip"
+  layer_name          = "${var.lambda_function_name}-layer"
+  compatible_runtimes = [var.lambda_runtime]
+  source_code_hash    = data.archive_file.dependencies_zip[0].output_base64sha256
+}
+
+
 resource "aws_lambda_function" "lambda" {
   depends_on = [null_resource.module_dependency]
 
@@ -23,7 +42,7 @@ resource "aws_lambda_function" "lambda" {
   handler          = var.lambda_handler
   runtime          = var.lambda_runtime
   tags             = var.tags
-  layers           = var.lambda_layers
+  layers           = length(var.lambda_dependencies_path) > 0 ? var.lambda_layers == null ? [aws_lambda_layer_version.lambda_dependencies_layer[0].arn] : concat(var.lambda_layers, [aws_lambda_layer_version.lambda_dependencies_layer[0].arn]) : var.lambda_layers
   timeout          = var.lambda_timeout
 
 

@@ -37,6 +37,7 @@ module "compute_lambda_test_s3" {
 | lambda\_function\_name| A name for the lambda | string | `-` | yes |
 | lambda\_description| Some description for your lambda | string | `"Some description for your lambda"` | no |
 | lambda\_lambda\_code\_path | The path to your lamda code and packages | string | `-` | yes |
+| lambda\_dependencies\_code\_path | The path to your dependencies path | string | "" | no |
 | lambda\_handler| Lambda handler, e.g: `lambda_function.lambda_handler` | string | `-` | yes |
 | lambda\_runtime| Lambda runtime, e.g: `python3.8` | string | `-` | yes |
 | lambda\_policy\_arn| A list of policie's arn to attach to your lambda role | list(string) | `-` | yes |
@@ -54,5 +55,3 @@ module "compute_lambda_test_s3" {
 | lambda\_role\_name | Name of the lambda role|
 | lambda\_name | Name of the lambda|
 | lambda\_invoke\_uri\_arn | ARN of the lambda invoke uri ARN|
-
-
