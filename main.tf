@@ -26,7 +26,7 @@ resource "aws_lambda_layer_version" "lambda_dependencies_layer" {
   filename            = "dependencies.zip"
   layer_name          = "${var.lambda_function_name}-layer"
   compatible_runtimes = [var.lambda_runtime]
-  source_code_hash    = data.archive_file.dependencies_zip.output_base64sha256
+  source_code_hash    = data.archive_file.dependencies_zip[0].output_base64sha256
 }
 
 
