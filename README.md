@@ -17,6 +17,7 @@ module "compute_lambda_test_s3" {
     lambda_description              = "Example lambda"
     lambda_policy_arn               = [aws_iam_policy.compute_policy_logs.arn] 
     lambda_timeout                  = 30
+    lambda_memory_size              = 256
     tags = {
         State       = "terraform managed"
         Environment = "prod"

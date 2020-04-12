@@ -29,6 +29,10 @@ variable "lambda_timeout" {
   default = 3
 }
 
+variable "lambda_memory_size" {
+  default = 128
+}
+
 variable "lambda_policy_arn" {
   description = "The ARNs of the policies to attach to the lambda role"
   type        = list(string)
