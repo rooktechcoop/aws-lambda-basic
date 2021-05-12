@@ -62,5 +62,5 @@ variable "module_dependency" {
 
 variable "cw_logs_retention_days" {
   description = "Number of retention days of the lambda log group in Cloudwatch"
-  default = 14
+  default     = 14
 }

@@ -14,7 +14,7 @@ data "archive_file" "lambda_zip" {
 
 data "archive_file" "dependencies_zip" {
 
-  count = length(var.lambda_dependencies_path) > 0 ? 1 : 0
+  count       = length(var.lambda_dependencies_path) > 0 ? 1 : 0
   type        = "zip"
   source_dir  = var.lambda_dependencies_path
   output_path = "${var.lambda_function_name}_dependencies.zip"
@@ -23,7 +23,7 @@ data "archive_file" "dependencies_zip" {
 resource "aws_lambda_layer_version" "lambda_dependencies_layer" {
   depends_on = [null_resource.module_dependency]
 
-  count = length(var.lambda_dependencies_path) > 0 ? 1 : 0
+  count               = length(var.lambda_dependencies_path) > 0 ? 1 : 0
   filename            = "${var.lambda_function_name}_dependencies.zip"
   layer_name          = "${var.lambda_function_name}-layer"
   compatible_runtimes = [var.lambda_runtime]
