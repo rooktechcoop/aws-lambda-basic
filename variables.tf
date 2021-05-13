@@ -59,3 +59,9 @@ variable "lambda_layers" {
 variable "module_dependency" {
   default = ""
 }
+
+variable "cw_logs_retention_days" {
+  description = "Number of retention days of the lambda log group in Cloudwatch"
+  type        = number
+  default     = 14
+}
